@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598682468279",
+    "project_id": "loginautosiste",
+    "storage_bucket": "loginautosiste.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598682468279:android:cf40aae0303f75cda03232",
+        "android_client_info": {
+          "package_name": "com.mecasoft.autosistebolivia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpugPFeYGmkGgmJmwWI47pFOe74NH8vuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
