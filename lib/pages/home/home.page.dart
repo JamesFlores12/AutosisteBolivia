@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:autosistebolivia/pages/home/perfil.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,78 +7,101 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  // Función para actualizar la pantalla seleccionada
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    // Navegación a PerfilScreen al seleccionar el índice de perfil
+    if (index == 3) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PerfilScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Función de tamaño adaptable para texto
+    double responsiveFont(double value) => value.clamp(16.0, 32.0);
+    double responsiveHeight(double value) => value.clamp(150.0, 300.0);
+
     return Scaffold(
-      backgroundColor: Color(0xFF1E1E2C), // Fondo azul oscuro
+      backgroundColor: Color(0xFF1E1E2C),
       body: SafeArea(
         child: Stack(
           children: [
-            // Fondo de bienvenida
             Column(
               children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF1E1E2C),
-                          Color(0xFFFBC02D)
-                        ], // Azul oscuro a amarillo
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
+                // Contenedor de fondo de bienvenida
+                Container(
+                  height: screenHeight * 0.35,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF1E1E2C), Color(0xFFFBC02D)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Bienvenido a',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bienvenido a',
+                          style: TextStyle(
+                            fontSize: responsiveFont(screenWidth * 0.07),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            'AUTOSISTE BOLIVIA',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFBC02D), // Amarillo
-                              letterSpacing: 2,
-                            ),
+                        ),
+                        SizedBox(height: screenHeight * 0.01),
+                        Text(
+                          'AUTOSISTE BOLIVIA',
+                          style: TextStyle(
+                            fontSize: responsiveFont(screenWidth * 0.09),
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFFBC02D),
+                            letterSpacing: 2,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
-            // Contenido principal (que se puede desplazar)
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                      height: 250), // Espacio para la pantalla de bienvenida
+                  SizedBox(height: screenHeight * 0.35),
+                  // Contenido del home
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.04,
+                      vertical: screenHeight * 0.015,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
                             Icon(Icons.location_on, color: Colors.white),
-                            SizedBox(width: 8),
+                            SizedBox(width: screenWidth * 0.02),
                             Text(
                               'Taller Central',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: responsiveFont(screenWidth * 0.045),
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -89,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           children: [
                             Icon(Icons.notifications_none, color: Colors.white),
-                            SizedBox(width: 20),
+                            SizedBox(width: screenWidth * 0.05),
                             Icon(Icons.shopping_cart_outlined,
                                 color: Colors.white),
                           ],
@@ -97,9 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  // Campo de búsqueda
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Buscar servicios, repuestos, mecánicos...',
@@ -108,29 +131,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         filled: true,
                         fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.03),
                           borderSide: BorderSide.none,
                         ),
                       ),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  // Banner promocional
+                  SizedBox(height: screenHeight * 0.02),
+                  // Continuar con el contenido de la página
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                     child: Container(
-                      height: 160,
+                      height: responsiveHeight(screenHeight * 0.25),
                       decoration: BoxDecoration(
                         color: Color(0xFF283593),
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage('lib/assets/mecanico_promo.png'),
-                          fit: BoxFit.cover,
-                        ),
+                        borderRadius: BorderRadius.circular(screenWidth * 0.03),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(screenWidth * 0.04),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,29 +160,30 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Servicio Mecánico hasta 20% OFF',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: responsiveFont(screenWidth * 0.05),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: screenHeight * 0.01),
                             Text(
                               'Aprovecha las ofertas en mantenimiento de tu vehículo.',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: responsiveFont(screenWidth * 0.04),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: screenHeight * 0.015),
                             ElevatedButton(
-                              onPressed: () {
-                                // Acción al presionar el botón
-                              },
+                              onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 10),
+                                  horizontal: screenWidth * 0.04,
+                                  vertical: screenHeight * 0.015,
+                                ),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius:
+                                      BorderRadius.circular(screenWidth * 0.02),
                                 ),
                               ),
                               child: Text(
@@ -174,47 +196,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  // Tarjetas de categorías
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildCategoryCard('Mantenimiento',
-                            'Revisiones y ajustes', 'lib/assets/imagen1.png'),
-                        _buildCategoryCard('Repuestos', 'Partes y accesorios',
-                            'lib/assets/imagen2.png'),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildCategoryCard('Servicios a Domicilio',
-                            'Mecánica donde estés', 'lib/assets/imagen3.png'),
-                        _buildCategoryCard('Consulta Mecánica',
-                            'Habla con un experto', 'lib/assets/imagen4.png'),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      // Barra de navegación inferior
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Color(0xFFFBC02D), // Amarillo
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color(0xFFFBC02D),
         unselectedItemColor: Colors.white,
-        backgroundColor: Color(0xFF1E1E2C), // Azul oscuro
+        backgroundColor: Color(0xFF1E1E2C),
         showSelectedLabels: true,
         showUnselectedLabels: true,
+        onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
           BottomNavigationBarItem(icon: Icon(Icons.build), label: 'Servicios'),
@@ -222,47 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.receipt), label: 'Historial'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
-      ),
-    );
-  }
-
-  // Método para construir las tarjetas de categorías
-  Widget _buildCategoryCard(String title, String subtitle, String imagePath) {
-    return Expanded(
-      child: Container(
-        height: 150,
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(imagePath, height: 60),
-            SizedBox(height: 10),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87),
-            ),
-            SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(fontSize: 12, color: Colors.black54),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
       ),
     );
   }
